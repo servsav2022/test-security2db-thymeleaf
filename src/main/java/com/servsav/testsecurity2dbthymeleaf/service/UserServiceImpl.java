@@ -1,5 +1,4 @@
 package com.servsav.testsecurity2dbthymeleaf.service;
-
 import com.servsav.testsecurity2dbthymeleaf.dto.UserDto;
 import com.servsav.testsecurity2dbthymeleaf.entity.Role;
 import com.servsav.testsecurity2dbthymeleaf.entity.User;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -28,8 +26,6 @@ public class UserServiceImpl implements UserService {
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
-
-
     @Override
     public  void saveUser (UserDto userDto) {
         User user = new User();
@@ -43,7 +39,6 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
     }
-
     @Override
     public User findUserByEmail(String email) {return userRepository.findByEmail(email);}
 
@@ -54,7 +49,6 @@ public class UserServiceImpl implements UserService {
                 .map((user) -> mapToUserDto(user))
                 .collect(Collectors.toList());
     }
-
     private UserDto mapToUserDto(User user) {
         UserDto userDto = new UserDto();
         String[] str = user.getName().split(" ");
@@ -63,16 +57,9 @@ public class UserServiceImpl implements UserService {
         userDto.setEmail(user.getEmail());
         return userDto;
     }
-
     private Role checkRoleExist() {
         Role role = new Role();
         role.setName("ROLE_ADMIN");
         return roleRepository.save(role);
     }
-
-
-
-
-
-
 }
